@@ -31,6 +31,8 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[];
   public dataSource: MatTableDataSource<Hero>;
 
+  public searchValue:string = '';
+
   constructor(
     private _heroService: HeroService,
     public dialog: MatDialog
@@ -121,6 +123,11 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
+  search(event:any):void{
+    console.log(event)
+    this.heroData = this._heroService.searchHeroes(event);
+    this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+    this.dataSource.paginator = this.paginator;
+  }
 
 }

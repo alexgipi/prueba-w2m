@@ -10,7 +10,7 @@ import { HeroFormDialog } from './components/dialogs/hero-form-dialog/hero-form-
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatTableModule} from '@angular/material/table';
 
@@ -30,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     TranslateModule,
+    FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatTableModule,
