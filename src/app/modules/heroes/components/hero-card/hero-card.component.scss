@@ -1,0 +1,100 @@
+.heroes-list {
+    &__item {
+      border: 1px solid #d1d1d1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 0 0 transparent;
+      transition: all 0.3s;
+
+        &:hover {
+            header {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 9%), 0px 8px 10px 1px rgb(0 0 0 / 10%), 0px 3px 14px 2px rgb(84 84 84 / 12%);
+        }
+
+        header {
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            position: absolute;
+            top: 0;
+            padding: 22px;
+            display: flex;
+            justify-content: flex-end;
+
+            .more-icon {
+                cursor: pointer;
+                fill: #ec1d24;
+            }
+        }
+
+        .avatar {
+            display: flex;
+            svg {
+                width: 160px;
+                height: 170px;
+                opacity: 0.2;
+            }
+        }
+
+        .details {
+            .name,.email, .role {
+                text-align: center;
+            }
+
+            .name {
+                margin: 20px 0 10px;
+                color: #000;
+                font-weight: 500;
+            }
+
+            .email {
+                margin-bottom: 10px;
+                color: #6a6a6a;
+            }
+
+            .role {
+                font-size: 0.84em;
+                font-weight: 500;
+                color: #758f00;
+            }
+        }
+
+        .actions {
+            .btn {
+                background: #ec1d24;
+                margin-top: 18px;
+            }
+        }
+    }
+}
+
+@media(max-width:1000px){
+    .heroes-list__item {
+        header {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+@media(max-width:360px){
+    .heroes-list {
+        &__item {
+            .avatar svg {
+                width: 56%;
+                height: auto;
+                margin: 0 auto;
+            }
+        }
+    }
+}

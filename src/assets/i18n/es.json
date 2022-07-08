@@ -1,0 +1,31 @@
+{
+    "HEROES": {
+        "SINGULAR": "Heroe",
+        "PLURAL": "Heroes",
+        "TITLE": "Administración de Heroes",
+        "ADD_HERO": "Añadir heroe",
+        "FILTER_HEROES": "Filtrar heroes",
+        "PROPS": {
+            "IMAGE": "Imagen",
+            "NAME": "Nombre",
+            "STRENGTH": "Fuerza",
+            "SPEED": "Velocidad",
+            "ENDURANCE": "Resistencia",
+            "ACTIONS": "Acciones"
+        },
+        "ACTIONS": {
+            "VIEW": "Ver",
+            "VIEW_DETAIL": "Ver detalle",
+            "EDIT": "Editar",
+            "DELETE": "Eliminar",
+            "CLOSE": "Cerrar",
+            "SAVE_CHANGES": "Guardar cambios"
+        },
+        "DETAIL_TITLE": "Detalle de usuario",
+        "EDIT_TITLE": "Editar heroe"
+    },
+    "LANGUAGES": {
+        "SPANISH": "Español",
+        "ENGLISH": "Inglés"
+    }
+}
