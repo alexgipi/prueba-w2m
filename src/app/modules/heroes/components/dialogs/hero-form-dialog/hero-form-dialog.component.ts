@@ -45,25 +45,33 @@ export class HeroFormDialog implements OnInit {
       name: [
         '',
         [
-          Validators.required
+          Validators.required,
+          Validators.min(1),
+          Validators.max(100)
         ]
       ],
       strength: [
         '',
         [
-          Validators.required
+          Validators.required,
+          Validators.min(1),
+          Validators.max(100)
         ]
       ],
       speed: [
         '',
         [
-          Validators.required
+          Validators.required,
+          Validators.min(1),
+          Validators.max(100)
         ]
       ],
       endurance: [
         '',
         [
-          Validators.required
+          Validators.required,
+          Validators.min(1),
+          Validators.max(100)
         ]
       ]
     })
