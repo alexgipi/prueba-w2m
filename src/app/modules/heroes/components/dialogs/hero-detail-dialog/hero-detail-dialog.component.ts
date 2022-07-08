@@ -9,10 +9,10 @@ import { Hero } from 'src/app/models/hero';
 export class HeroDetailDialog implements OnInit {
   public hero!:Hero;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {user: Hero},
+    @Inject(MAT_DIALOG_DATA) public data: {hero: Hero},
     private dialogRef: MatDialogRef<HeroDetailDialog>
   ) {
-    this.hero = data.user;
+    this.hero = data.hero;
   }
 
   ngOnInit(): void {
@@ -21,13 +21,13 @@ export class HeroDetailDialog implements OnInit {
 
   modalHeroUpdate() {
 
-    this.dialogRef.close({ data: {openUpdateUserModal:true} })
+    this.dialogRef.close({ data: {openUpdateHeroModal:true} })
 
 
   }
 
-  deleteUser(){
-    this.dialogRef.close({ data: {deleteUser:true} })
+  deleteHero(){
+    this.dialogRef.close({ data: {deleteHero:true} })
   }
 
 

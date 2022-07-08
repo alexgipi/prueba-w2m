@@ -45,10 +45,18 @@
                 height: 170px;
                 opacity: 0.2;
             }
+
+            img {
+                height: 166px;
+                width: 166px;
+                border-radius: 100%;
+                object-fit: cover;
+                padding: 5px;
+            }
         }
 
         .details {
-            .name,.email, .role {
+            .name,.stats, .role {
                 text-align: center;
             }
 
@@ -58,9 +66,10 @@
                 font-weight: 500;
             }
 
-            .email {
+            .stats {
                 margin-bottom: 10px;
-                color: #6a6a6a;
+                color: #7e7e7e;
+                font-weight: 500;
             }
 
             .role {

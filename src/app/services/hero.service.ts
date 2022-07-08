@@ -8,133 +8,28 @@ import { Hero } from '../models/hero';
   providedIn: 'root'
 })
 export class HeroService {
-  public url:string = 'https://hiberus-test-api.up.railway.app/users/';
-  public users:any[] = [
-    {
-      _id: '1',
-      email: 'email1@gmail.com',
-      password: 'root',
-      name: 'Heroe 1',
-      surname: 'Heroe 1',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '2',
-      email: 'email2@gmail.com',
-      password: 'root',
-      name: 'Heroe 2',
-      surname: 'Heroe 2',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '3',
-      email: 'email3@gmail.com',
-      password: 'root',
-      name: 'Heroe 3',
-      surname: 'Heroe 3',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '4',
-      email: 'email4@gmail.com',
-      password: 'root',
-      name: 'Heroe 4',
-      surname: 'Heroe 4',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '5',
-      email: 'email5@gmail.com',
-      password: 'root',
-      name: 'Heroe 5',
-      surname: 'Heroe 5',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '6',
-      email: 'email6@gmail.com',
-      password: 'root',
-      name: 'Heroe 6',
-      surname: 'Heroe 6',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '7',
-      email: 'email7@gmail.com',
-      password: 'root',
-      name: 'Heroe 7',
-      surname: 'Heroe 7',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '8',
-      email: 'email8@gmail.com',
-      password: 'root',
-      name: 'Heroe 8',
-      surname: 'Heroe 8',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '9',
-      email: 'email8@gmail.com',
-      password: 'root',
-      name: 'Heroe 8',
-      surname: 'Heroe 8',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    },
-    {
-      _id: '10',
-      email: 'email8@gmail.com',
-      password: 'root',
-      name: 'Heroe 8',
-      surname: 'Heroe 8',
-      role: '',
-      createdAt: '1234',
-      updatedAt: '1234',
-    }
-  ];
-
-
 
   public ELEMENT_DATA: Hero[] = [
-    {position: 1, name: 'Hydrogen', strength:55, speed: 66, endurance: 60},
-    {position: 2, name: 'Helium', strength: 45, speed: 40, endurance: 60},
-    {position: 3, name: 'Lithium', strength: 60, speed: 40, endurance: 60},
-    {position: 4, name: 'Beryllium', strength: 90, speed: 40, endurance: 60},
-    {position: 5, name: 'Boron', strength: 40, speed: 66, endurance: 60},
-    {position: 6, name: 'Carbon', strength: 70, speed: 66, endurance: 60},
-    {position: 7, name: 'Nitrogen', strength: 30, speed: 66, endurance: 60},
-    {position: 8, name: 'Oxygen', strength: 90, speed: 66, endurance: 60},
-    {position: 9, name: 'Fluorine', strength: 35, speed: 66, endurance: 60},
-    {position: 10, name: 'Hulk', strength: 99, speed: 40, endurance: 65},
-    {position: 11, name: 'Sodium', strength: 30, speed: 40, endurance: 60},
-    {position: 12, name: 'Magnesium', strength: 84, speed: 40, endurance: 60},
-    {position: 13, name: 'Aluminum', strength: 46, speed: 40, endurance: 60},
-    {position: 14, name: 'Silicon', strength: 49, speed: 40, endurance: 60},
-    {position: 15, name: 'Phosphorus', strength: 30, speed: 66, endurance: 60},
-    {position: 16, name: 'Sulfur', strength: 62, speed: 66, endurance: 60},
-    {position: 17, name: 'Chlorine', strength: 35, speed: 40, endurance: 60},
-    {position: 18, name: 'Argon', strength: 88, speed: 40, endurance: 60},
-    {position: 19, name: 'Potassium', strength: 93, speed: 66, endurance: 60},
-    {position: 20, name: 'Calcium', strength: 44, speed: 40, endurance: 60},
+    {id: 1, name: 'Deadpool', strength:55, speed: 75,  endurance: 80, image: 'https://is1-ssl.mzstatic.com/image/thumb/w-uHCvQ9CFlQ3uuzZ_1kIw/1200x675mf.jpg'},
+    {id: 2, name: 'Iron Man', strength: 45, speed: 40,  endurance: 40, image: 'https://www.cinemascomics.com/wp-content/uploads/2020/12/iron-man-4.jpg'},
+    {id: 3, name: 'Capitán América', strength: 60, speed: 40,  endurance: 68, image: 'https://xoandelugo.org/wp-content/uploads/2018/06/capitan-america.jpg'},
+    {id: 4, name: 'Wonder Woman', strength: 90, speed: 40,  endurance: 75, image: 'https://dam.smashmexico.com.mx/wp-content/uploads/2020/10/La-historia-de-Wonder-Woman-en-numeros-cover.jpg'},
+    {id: 5, name: 'Batman', strength: 40, speed: 66,  endurance: 60, image: 'https://i.pinimg.com/originals/c4/99/8e/c4998e24677d8833facb22546fb4c0c3.jpg'},
+    {id: 6, name: 'Flash', strength: 60, speed: 100,  endurance: 100, image: 'https://areajugones.sport.es/wp-content/uploads/2021/05/the-flash.jpg'},
+    {id: 7, name: 'Thor', strength: 30, speed: 66,  endurance: 60, image: 'https://elcomercio.pe/resizer/TO8T_FMfFjgV2g7xsWgL_ZGcjbw=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/3SAGW2TYSVD6LARR4MNIF5YEPY.jpg'},
+    {id: 8, name: 'Wolverine', strength: 80, speed: 56,  endurance: 55, image: 'https://www.eltiempo.com/files/image_640_428/uploads/2018/10/20/5bcbcbd83329b.jpeg'},
+    {id: 9, name: 'Spider-Man', strength: 45, speed: 94,  endurance: 80, image: 'https://blog.es.playstation.com/tachyon/sites/14/2022/06/adf0c6e3da060a9f9581c12eff047a48668fe616.jpg?resize=1088%2C612&crop_strategy=smart'},
+    {id: 10, name: 'Hulk', strength: 99, speed: 40, endurance: 35, image: 'https://www.cinemascomics.com/wp-content/uploads/2021/10/world-war-hulk-marvel-studios.jpg'},
+    {id: 11, name: 'Capitana MarvelL', strength: 30, speed: 70,  endurance: 60, image: 'https://areajugones.sport.es/wp-content/uploads/2021/04/capitana-marvel-2.jpg'},
+    {id: 12, name: 'Super Girl', strength: 84, speed: 40,  endurance: 90, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXMhuKboLj_EutoLCAiCqFrRiAMJxvyIgcOw&usqp=CAU'},
+    {id: 13, name: 'Aquaman', strength: 46, speed: 40,  endurance: 58, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5mfWTKt9hxnzKegC1NE0ViW9d3wdQPkKSpEfwwyLc2riv6cqLFKkDNY-w2wh2LIsacNg&usqp=CAU'},
+    {id: 14, name: 'Black Panter', strength: 49, speed: 40,  endurance: 60, image: 'https://www.cinemascomics.com/wp-content/uploads/2020/12/black-panther-2-2022.jpg'},
+    {id: 15, name: 'Superman', strength: 30, speed: 57,  endurance: 60, image: 'https://media.traveler.es/photos/61fd7d93651234bf948311ed/master/w_1600%2Cc_limit/IMG_DE272BF718E8_1.jpeg'},
+    {id: 16, name: 'Daredevil', strength: 62, speed: 66,  endurance: 80, image: 'https://www.cinemascomics.com/wp-content/uploads/2022/01/daredevil-netflix-marvel-studios.jpg'},
+    {id: 17, name: 'Doctor Strange', strength: 35, speed: 80,  endurance: 60, image: 'https://www.clarin.com/img/2022/05/05/benedict-cumberbatch-el-protagonista-del___zrOSKM_Xk_720x0__1.jpg'},
+    {id: 18, name: 'Green Arrow', strength: 88, speed: 60,  endurance: 50, image: 'https://sm.ign.com/ign_latam/screenshot/default/green_uh2g.jpg'},
+    {id: 19, name: 'Blade', strength: 90, speed: 76,  endurance: 40, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6uhIxpoaWiNTt2o7iuzmw-NPruzwQAN3BxoLrqrflD4soSP5UXNb_zSqJVkEfi0XkrNE&usqp=CAU'},
+    {id: 20, name: 'La Cosa', strength: 90, speed: 30,  endurance: 70, image: 'https://cdn.alfabetajuega.com/alfabetajuega/2018/11/56796.los_cuatro_fantasticos.jpg'},
   ];
 
   constructor(
@@ -147,8 +42,8 @@ export class HeroService {
 	}
 
 	getHero(id:number){
-    const user = this.ELEMENT_DATA.find(e => e.position === id);
-    return user;
+    const hero = this.ELEMENT_DATA.find(e => e.id === id);
+    return hero;
 	}
 
   searchHeroes(query:string){
@@ -157,14 +52,14 @@ export class HeroService {
   }
 
   updateHero(id:number, update:Hero){
-    let index = this.ELEMENT_DATA.findIndex(hero => hero.position === id);
+    let index = this.ELEMENT_DATA.findIndex(hero => hero.id === id);
     this.ELEMENT_DATA[index] = update;
     return {hero: update}
 	}
 
 
   deleteHero(id:number){
-		let index = this.ELEMENT_DATA.findIndex(hero => hero.position === id);
+		let index = this.ELEMENT_DATA.findIndex(hero => hero.id === id);
     this.ELEMENT_DATA.splice(index,1)
 	}
 

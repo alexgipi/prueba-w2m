@@ -17,12 +17,12 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeroesListComponent implements OnInit, AfterViewInit {
 
   public status!:string;
-  public users!: Hero[];
+  public heros!: Hero[];
 
   public limit:number = 20;
   public page:number = 1;
 
-  public noMoreUsers:boolean = false;
+  public noMoreHeros:boolean = false;
 
   public currentView:string = 'table';
 
@@ -38,7 +38,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog
   ) {
     this.heroData = this._heroService.ELEMENT_DATA;
-    this.displayedColumns = ['position', 'image', 'name', 'strength', 'speed', 'endurance', 'actions'];
+    this.displayedColumns = ['id', 'image', 'name', 'strength', 'speed', 'endurance', 'actions'];
     this.dataSource = new MatTableDataSource<Hero>(this.heroData);
   }
 
@@ -53,7 +53,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getUsers(this.limit, this.page);
+    this.getHeros(this.limit, this.page);
   }
 
   toggleView(){
@@ -63,71 +63,90 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
 
   }
 
-  getUsers(limit:number, page:number, push = false){
-    this.users = this._heroService.getHeroes(limit, page);
+  getHeros(limit:number, page:number, push = false){
+    this.heros = this._heroService.getHeroes(limit, page);
   }
 
   loadMore(){
     this.page++;
-    this.getUsers(this.limit, this.page, true);
+    this.getHeros(this.limit, this.page, true);
   }
 
-  onUserDeleted(event:any):void{
-    const userDeleted:Hero = JSON.parse(event).user;
+  onHeroDeleted(event:any):void{
+    const heroDeleted:Hero = JSON.parse(event).hero;
 
-    console.log(userDeleted)
+    console.log(heroDeleted)
 
-    this.deleteHero(userDeleted)
+    this.deleteHero(heroDeleted)
 
   }
 
 
   modalHeroDetail(hero:Hero) {
     const dialogRef = this.dialog.open(HeroDetailDialog, {
-      data: { user: hero },
+      data: { hero: hero },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
 
-      if(data?.openUpdateUserModal){
+      if(data?.openUpdateHeroModal){
         this.modalHeroUpdate(hero);
-      } else if(data?.deleteUser){
+      } else if(data?.deleteHero){
         this.deleteHero(hero);
       }
 
     });
   }
 
+  modalHeroCreate() {
+    const dialogRef = this.dialog.open(HeroFormDialog, {
+      data: { hero: {id: this.heroData.length+1, name: '', strength: '', speed: '', endurance:'', image:'',} },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const data = result?.data;
+      if(data){
+        
+        this.heroData.splice(0, 0, data.hero)
+
+        this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
+
   modalHeroUpdate(hero:Hero) {
     const dialogRef = this.dialog.open(HeroFormDialog, {
-      data: { user: hero },
+      data: { edit:true,  hero: hero },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
 
-      const index = this.heroData.findIndex(hero => hero.position === data?.user.position)
+      if(data){
+        const index = this.heroData.findIndex(hero => hero.id === data?.hero.id)
 
-      this.heroData[index] = data.user;
+        this.heroData[index] = data.hero;
 
-      this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+        this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+      }
+      
     });
   }
 
   deleteHero(hero:Hero){
-    let index = this.heroData.findIndex(he => he.position === hero.position);
+    let index = this.heroData.findIndex(he => he.id === hero.id);
 
     this.heroData.splice(index,1);
     this.dataSource = new MatTableDataSource<Hero>(this.heroData);
     this.dataSource.paginator = this.paginator;
   }
 
-  search(event:any):void{
-    console.log(event)
+  search(event:any):void{    
     this.heroData = this._heroService.searchHeroes(event);
     this.dataSource = new MatTableDataSource<Hero>(this.heroData);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;    
   }
 
 }

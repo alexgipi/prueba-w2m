@@ -87,12 +87,23 @@
     width: 100%;
   }
 
-  .mat-column-position {
+  
+
+  .mat-column-id {
     width: 80px;
+  }
+
+  .mat-column-name {
+    font-weight: 500;
   }
 
   .mat-column-actions {
     width: 240px;
+  }
+
+  .mat-column-image {
+    width: 84px;
+    padding: 12px 0;
   }
 
 

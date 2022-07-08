@@ -3,7 +3,7 @@
   <div class="table-actions">
 
     <div class="table-actions__filters">
-      <button class="btn" mat-raised-button color="primary">{{ 'HEROES.ADD_HERO' | translate }}</button>
+      <button (click)="modalHeroCreate()" class="btn" mat-raised-button color="primary">{{ 'HEROES.ADD_HERO' | translate }}</button>
 
       <div class="search">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" class="icon"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
@@ -30,22 +30,27 @@
   [infiniteScrollDistance]="1"
   [infiniteScrollThrottle]="50"
   (scrolled)="loadMore()">
-      <app-hero-card (onDeleted)="onUserDeleted($event)" [hero]="user" *ngFor="let user of heroData"></app-hero-card>
+      <app-hero-card (onDeleted)="onHeroDeleted($event)" [hero]="hero" *ngFor="let hero of heroData"></app-hero-card>
   </div>
 
   <div [class.display-none]="currentView !== 'table'"  class="table mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
       <!-- Position Column -->
-      <ng-container matColumnDef="position">
+      <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.IMAGE' | translate }} </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-cell *matCellDef="let element">
+          <div class="hero-image">
+            <img *ngIf="element.image" [src]="element.image" alt="{{element.name}}">
+            <svg *ngIf="!element.image" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 45.532 45.532" xml:space="preserve" class="hero-profile"><g _ngcontent-gyu-c16=""><g _ngcontent-gyu-c16="" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-gyu-c16="" d="M22.766,0.001C10.194,0.001,0,10.193,0,22.766s10.193,22.765,22.766,22.765c12.574,0,22.766-10.192,22.766-22.765   S35.34,0.001,22.766,0.001z M22.766,6.808c4.16,0,7.531,3.372,7.531,7.53c0,4.159-3.371,7.53-7.531,7.53   c-4.158,0-7.529-3.371-7.529-7.53C15.237,10.18,18.608,6.808,22.766,6.808z M22.761,39.579c-4.149,0-7.949-1.511-10.88-4.012   c-0.714-0.609-1.126-1.502-1.126-2.439c0-4.217,3.413-7.592,7.631-7.592h8.762c4.219,0,7.619,3.375,7.619,7.592   c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z" fill="#000000" data-original="#000000"></path></g></g></svg>
+          </div>
+        </td>
       </ng-container>
 
       <!-- Name Column -->

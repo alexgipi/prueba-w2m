@@ -28,16 +28,16 @@ export class HeroCardComponent implements OnInit {
 
   modalHeroDetail() {
     const dialogRef = this.dialog.open(HeroDetailDialog, {
-      data: { user: this.hero },
+      data: { hero: this.hero },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
 
-      if(data?.openUpdateUserModal){
+      if(data?.openUpdateHeroModal){
         this.modalHeroUpdate();
-      } else if(data?.deleteUser){
-        this.deleteUser();
+      } else if(data?.deleteHero){
+        this.deleteHero();
       }
 
     });
@@ -45,18 +45,18 @@ export class HeroCardComponent implements OnInit {
 
   modalHeroUpdate() {
     const dialogRef = this.dialog.open(HeroFormDialog, {
-      data: { user: this.hero },
+      data: { hero: this.hero },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
 
-      if(data?.user) this.hero = data.user;
+      if(data?.hero) this.hero = data.hero;
     });
   }
 
-  deleteUser(){
-    let response = {user: this.hero}
+  deleteHero(){
+    let response = {hero: this.hero}
     this.onDeleted.emit(JSON.stringify(response));
   }
 

@@ -5,30 +5,41 @@ import { Router } from '@angular/router';
 import { Hero } from 'src/app/models/hero';
 import { HeroService } from 'src/app/services/hero.service';
 
+const urlReg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+
 @Component({
   selector: 'hero-form-dialog',
   templateUrl: './hero-form-dialog.component.html',
 })
 export class HeroFormDialog implements OnInit {
 
-  public userUpdateForm!: FormGroup;
-  public user: Hero;
+  public heroUpdateForm!: FormGroup;
+  public hero: Hero;
 
   public errors:any[] = [];
+
+  public editMode:boolean = false;
+
+  formButtonText:string = 'HEROES.ADD_HERO';
+  formTitle:string = 'HEROES.ADD_HERO';
   constructor(
     private formBuilder: FormBuilder,
     private _heroService: HeroService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: {user: Hero},
+    @Inject(MAT_DIALOG_DATA) public data: {hero: Hero, edit:boolean},
     private dialogRef: MatDialogRef<HeroFormDialog>
   ) {
-    this.user = data.user;
-
-    this.userUpdateForm = this.formBuilder.group({
-      position: [
+    this.heroUpdateForm = this.formBuilder.group({
+      id: [
         '',
         [
           Validators.required
+        ]
+      ],
+      image: [
+        '',
+        [
+          Validators.pattern(urlReg)
         ]
       ],
       name: [
@@ -56,17 +67,43 @@ export class HeroFormDialog implements OnInit {
         ]
       ]
     })
+    
+    this.hero = data?.hero;
+
+    if(this.data.edit) {
+      this.editMode = true;
+      this.formButtonText = 'HEROES.ACTIONS.SAVE_CHANGES';
+      this.formTitle = 'HEROES.EDIT_TITLE';      
+    }   
+
+    
   }
 
   ngOnInit(): void {
-    this.userUpdateForm.patchValue(this.user);
+    this.heroUpdateForm.patchValue(this.hero);
   }
 
-  userUpdate(){
-    this.user = this.userUpdateForm.value;
-    this._heroService.updateHero(this.user.position, this.user);
 
-    this.dialogRef.close({ data: {user: this.user} })
+  sendForm(){
+    if(this.editMode){
+      this.updateHero();
+      
+    } else {
+      this.createHero();
+      
+    }
+  }
+
+  createHero(){
+    this.hero = this.heroUpdateForm.value;
+    this.dialogRef.close({ data: {hero: this.hero} })
+  }
+
+  updateHero(){
+    this.hero = this.heroUpdateForm.value;
+    this._heroService.updateHero(this.hero.id, this.hero);
+
+    this.dialogRef.close({ data: {hero: this.hero} })
   }
 
 }

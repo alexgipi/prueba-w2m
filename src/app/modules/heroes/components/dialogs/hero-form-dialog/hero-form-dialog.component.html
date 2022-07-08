@@ -1,45 +1,56 @@
 <div class="dialog-header">
-  <h2 class="title" mat-dialog-title>{{ 'HEROES.EDIT_TITLE' | translate }}</h2>
+  <h2 (click)="createHero()" *ngIf="editMode" class="title" mat-dialog-title>{{ formTitle | translate }}</h2>
+  <h2 (click)="createHero()" *ngIf="!editMode" class="title" mat-dialog-title>{{ formTitle | translate }}</h2>
+
   <svg mat-dialog-close class="dialog-close-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
 </div>
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="userUpdateForm" class="form form--update">
+  <form [formGroup]="heroUpdateForm" class="form form--update">
 
     <div class="form__content">
-        <div class="form__item" [class.error]="userUpdateForm.controls['name'].invalid && userUpdateForm.controls['name']?.touched">
+        <div class="form__item" [class.error]="heroUpdateForm.controls['image'].invalid && heroUpdateForm.controls['image']?.touched">
+            <label for="image">
+                {{ 'HEROES.PROPS.IMAGE' | translate }}
+                
+            </label>
+
+            <input class="box-input" formControlName="image" type="url" id="image" placeholder="Url de la imagen">
+        </div>
+        
+        <div class="form__item" [class.error]="heroUpdateForm.controls['name'].invalid && heroUpdateForm.controls['name']?.touched">
             <label for="name">
                 {{ 'HEROES.PROPS.NAME' | translate }}
                 <span class="required-field-icon">*</span>
             </label>
 
-            <input class="box-input" formControlName="name" type="text" id="name" placeholder="Introduce tu nombre">
+            <input class="box-input" formControlName="name" type="text" id="name" placeholder="Nombre del superheroe">
         </div>
 
-        <div class="form__item" [class.error]="userUpdateForm.controls['strength'].invalid && userUpdateForm.controls['strength']?.touched">
+        <div class="form__item" [class.error]="heroUpdateForm.controls['strength'].invalid && heroUpdateForm.controls['strength']?.touched">
             <label for="strength">
                 {{ 'HEROES.PROPS.STRENGTH' | translate }}
                 <span class="required-field-icon">*</span>
             </label>
 
-            <input class="box-input" formControlName="strength" type="text" id="strength" placeholder="Fuerza del heroe">
+            <input class="box-input" formControlName="strength" type="number" id="strength" placeholder="Fuerza del heroe">
         </div>
 
-        <div class="form__item" [class.error]="userUpdateForm.controls['speed'].invalid && userUpdateForm.controls['speed']?.touched">
+        <div class="form__item" [class.error]="heroUpdateForm.controls['speed'].invalid && heroUpdateForm.controls['speed']?.touched">
             <label for="speed">
                 {{ 'HEROES.PROPS.SPEED' | translate }}
                 <span class="required-field-icon">*</span>
             </label>
 
-            <input class="box-input" formControlName="speed" type="text" id="speed" placeholder="Velocidad del heroe">
+            <input class="box-input" formControlName="speed" type="number" id="speed" placeholder="Velocidad del heroe">
         </div>
 
-        <div class="form__item" [class.error]="userUpdateForm.controls['endurance'].invalid && userUpdateForm.controls['endurance']?.touched">
+        <div class="form__item" [class.error]="heroUpdateForm.controls['endurance'].invalid && heroUpdateForm.controls['endurance']?.touched">
           <label for="endurance">
             {{ 'HEROES.PROPS.ENDURANCE' | translate }}
               <span class="required-field-icon">*</span>
           </label>
 
-          <input class="box-input" formControlName="speed" type="text" id="endurance" placeholder="Resistencia del heroe">
+          <input class="box-input" formControlName="endurance" type="text" id="endurance" placeholder="Resistencia del heroe">
         </div>
 
 
@@ -50,7 +61,7 @@
     </span>
 
     <div class="form__actions">
-        <button (click)="userUpdate()" [disabled]="!userUpdateForm.valid" class="btn">{{ 'HEROES.ACTIONS.SAVE_CHANGES' | translate }}</button>
+        <button (click)="sendForm()" [disabled]="!heroUpdateForm.valid" class="btn">{{ formButtonText | translate }}</button>
     </div>
   </form>
 </mat-dialog-content>

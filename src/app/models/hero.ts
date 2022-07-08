@@ -1,5 +1,6 @@
 export interface Hero {
-  position: number;
+  id: number;
+  image: string;
   name: string;
   strength: number;
   speed: number;
