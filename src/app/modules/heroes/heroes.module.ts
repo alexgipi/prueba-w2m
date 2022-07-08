@@ -17,6 +17,7 @@ import {MatTableModule} from '@angular/material/table';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslateModule } from '@ngx-translate/core';
+import { DeleteConfirmDialog } from './components/dialogs/delete-confirm-dialog/delete-confirm-dialog.component';
 
 
 
@@ -25,7 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
     HeroesListComponent,
     HeroCardComponent,
     HeroDetailDialog,
-    HeroFormDialog
+    HeroFormDialog,
+    DeleteConfirmDialog
   ],
   imports: [
     CommonModule,

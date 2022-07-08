@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HeroDetailDialog } from '../dialogs/hero-detail-dialog/hero-detail-dialog.component';
 import { HeroFormDialog } from '../dialogs/hero-form-dialog/hero-form-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { DeleteConfirmDialog } from '../dialogs/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-heroes-list',
@@ -77,10 +78,26 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
 
     console.log(heroDeleted)
 
-    this.deleteHero(heroDeleted)
+    // this.deleteHero(heroDeleted)
+
+    this.modalHeroDelete(heroDeleted)
 
   }
 
+  modalHeroDelete(hero:Hero) {
+    const dialogRef = this.dialog.open(DeleteConfirmDialog, {
+      data: { hero: hero },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const data = result?.data;
+
+      if(data?.deleteHero){
+        this.deleteHero(hero);
+      }
+
+    });
+  }
 
   modalHeroDetail(hero:Hero) {
     const dialogRef = this.dialog.open(HeroDetailDialog, {
@@ -93,7 +110,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
       if(data?.openUpdateHeroModal){
         this.modalHeroUpdate(hero);
       } else if(data?.deleteHero){
-        this.deleteHero(hero);
+        this.modalHeroDelete(hero);
       }
 
     });
@@ -107,7 +124,7 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
       if(data){
-        
+
         this.heroData.splice(0, 0, data.hero)
 
         this.dataSource = new MatTableDataSource<Hero>(this.heroData);
