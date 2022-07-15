@@ -30,12 +30,6 @@ export class HeroFormDialog implements OnInit {
     private dialogRef: MatDialogRef<HeroFormDialog>
   ) {
     this.heroUpdateForm = this.formBuilder.group({
-      id: [
-        '',
-        [
-          Validators.required
-        ]
-      ],
       image: [
         '',
         [
@@ -75,16 +69,16 @@ export class HeroFormDialog implements OnInit {
         ]
       ]
     })
-    
+
     this.hero = data?.hero;
 
     if(this.data.edit) {
       this.editMode = true;
       this.formButtonText = 'HEROES.ACTIONS.SAVE_CHANGES';
-      this.formTitle = 'HEROES.EDIT_TITLE';      
-    }   
+      this.formTitle = 'HEROES.EDIT_TITLE';
+    }
 
-    
+
   }
 
   ngOnInit(): void {
@@ -95,23 +89,33 @@ export class HeroFormDialog implements OnInit {
   sendForm(){
     if(this.editMode){
       this.updateHero();
-      
+
     } else {
       this.createHero();
-      
+
     }
   }
 
   createHero(){
     this.hero = this.heroUpdateForm.value;
-    this.dialogRef.close({ data: {hero: this.hero} })
+    console.log(this.hero)
+    this._heroService.createHero(this.hero).subscribe(
+      response => {
+        this.dialogRef.close({ data: {hero: response} })
+      }
+    )
+
   }
 
   updateHero(){
+    this.heroUpdateForm.value.id = this.hero.id;
     this.hero = this.heroUpdateForm.value;
-    this._heroService.updateHero(this.hero.id, this.hero);
 
-    this.dialogRef.close({ data: {hero: this.hero} })
+    this._heroService.updateHero(this.hero.id, this.hero).subscribe(
+      response => {
+        this.dialogRef.close({ data: {hero: response} })
+      }
+    );
   }
 
 }

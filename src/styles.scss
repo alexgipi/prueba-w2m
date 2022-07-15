@@ -3,7 +3,11 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f7f7f7;
+}
 
 
 a {
@@ -11,7 +15,7 @@ a {
 }
 
 .spaceContent {
-    max-width: 1800px;
+    max-width: 1320px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -24,9 +28,16 @@ a {
     align-items: center;
     background: #fff;
 
+    .spaceContent {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .title {
       font-weight: 500;
-      font-size: 1.6em;
+      font-size: 1.5em;
       color: #000;
       margin-bottom: 0;
     }
@@ -53,7 +64,7 @@ a {
       display: flex;
       align-items: center;
       cursor: pointer;
-        
+
       span {
         text-transform: uppercase;
       }
@@ -63,8 +74,12 @@ a {
       }
     }
 
-    .logo {
-        height: 26px;
+    .logo-svg {
+      height: 62px;
+      border-radius: 9px;
+      padding: 5px;
+      background: #ec1d24;
+      width: 140px;
     }
 
     .btn {
@@ -107,6 +122,9 @@ a {
 
 }
 
+.mat-menu-panel.myMenu {
+  margin-top: -100px;
+}
 
 button.mat-menu-item {
     display: flex;
@@ -290,9 +308,13 @@ button.mat-menu-item {
 // Responsive
 @media(max-width:800px) {
     .main-header {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px 0;
+
+        .spaceContent {
+          flex-direction: column;
+          gap: 16px;
+          padding: 16px 0;
+        }
+
 
         .btn {
             margin-left: 0;

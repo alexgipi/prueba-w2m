@@ -1,12 +1,12 @@
 <div class="dialog-header">
-  <h2 class="title" mat-dialog-title>{{ 'HEROES.DETAIL_TITLE' | translate }}</h2>
+  <h2 class="title" mat-dialog-title>{{ 'HEROES.REMOVE_TITLE' | translate }}</h2>
 </div>
 
 
 <mat-dialog-content class="mat-typography">
   <div class="hero-detail">
     <div class="hero-detail__item">
-      <strong>¿Seguro que quieres eliminar a {{hero.name}}?</strong> 
+      <strong>{{'DELETE_CONFIRM_MESSAGE' | translate}} {{hero.name}}?</strong>
     </div>
   </div>
 
@@ -15,8 +15,8 @@
 <mat-dialog-actions class="dialog-actions--space-between">
 
   <div>
-    <button [mat-dialog-close]="true" mat-stroked-button e>Cancelar</button>
-    <button (click)="deleteHero()" mat-stroked-button mat-dialog-clos cdkFocusInitial>Eliminar</button>
+    <button [mat-dialog-close]="true" mat-stroked-button>{{ 'CANCEL' | translate }}</button>
+    <button (click)="deleteHero()" mat-stroked-button cdkFocusInitial>{{ 'DELETE' | translate }}</button>
   </div>
 
 </mat-dialog-actions>

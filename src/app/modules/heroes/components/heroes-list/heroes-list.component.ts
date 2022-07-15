@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { HeroService } from 'src/app/services/hero.service';
 
-import {MatPaginator} from '@angular/material/paginator';
+
 import {MatTableDataSource} from '@angular/material/table';
 import { Hero } from 'src/app/models/hero';
 import { MatDialog } from '@angular/material/dialog';
-import { HeroDetailDialog } from '../dialogs/hero-detail-dialog/hero-detail-dialog.component';
 import { HeroFormDialog } from '../dialogs/hero-form-dialog/hero-form-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
 import { DeleteConfirmDialog } from '../dialogs/delete-confirm-dialog/delete-confirm-dialog.component';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-heroes-list',
@@ -20,41 +19,53 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
   public status!:string;
   public heros!: Hero[];
 
-  public limit:number = 20;
+  public totalElements!: number;
+
+  public limit:number = 15;
   public page:number = 1;
 
   public noMoreHeros:boolean = false;
 
-  public currentView:string = 'table';
+  public currentView:string;
 
-  public heroData: Hero[];
+  public heroData!: Hero[];
 
   public displayedColumns: string[];
-  public dataSource: MatTableDataSource<Hero>;
+  public dataSource!: MatTableDataSource<Hero>;
 
   public searchValue:string = '';
 
   constructor(
     private _heroService: HeroService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver
   ) {
-    this.heroData = this._heroService.ELEMENT_DATA;
     this.displayedColumns = ['id', 'image', 'name', 'strength', 'speed', 'endurance', 'actions'];
-    this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+    this.currentView = localStorage.getItem("currentView") || 'grid';
   }
 
 
 
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event:any){
+    this.tableResponsive();
   }
 
   ngOnInit(): void {
-    this.getHeros(this.limit, this.page);
+    this.getHeroes(this.limit);
+
+    this.tableResponsive();
+  }
+
+  tableResponsive(){
+    if(this.breakpointObserver.isMatched('(max-width: 850px)')){
+      this.currentView = 'grid';
+      localStorage.setItem("currentView", this.currentView);
+    }
   }
 
   toggleView(){
@@ -62,23 +73,38 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
     else if (this.currentView === 'table')
     this.currentView = 'grid';
 
+    localStorage.setItem("currentView", this.currentView);
+
   }
 
-  getHeros(limit:number, page:number, push = false){
-    this.heros = this._heroService.getHeroes(limit, page);
+  getHeroes(limit?:number, page?:number, push?:boolean){
+    this._heroService.getHeroes(limit, page).subscribe(
+      response => {
+        if(response.body){
+          if(push) this.heros.push(...response.body);
+          else this.heros = response.body;
+
+          this.totalElements = response.headers.get("X-Total-Count");
+
+          this.dataSource = new MatTableDataSource<Hero>(this.heros);
+        }
+
+
+
+      }
+    )
   }
 
   loadMore(){
     this.page++;
-    this.getHeros(this.limit, this.page, true);
+    //this.getHeros(this.limit, this.page, true);
+    this.getHeroes(this.limit, this.page, true);
   }
 
   onHeroDeleted(event:any):void{
     const heroDeleted:Hero = JSON.parse(event).hero;
 
     console.log(heroDeleted)
-
-    // this.deleteHero(heroDeleted)
 
     this.modalHeroDelete(heroDeleted)
 
@@ -99,36 +125,19 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  modalHeroDetail(hero:Hero) {
-    const dialogRef = this.dialog.open(HeroDetailDialog, {
-      data: { hero: hero },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      const data = result?.data;
-
-      if(data?.openUpdateHeroModal){
-        this.modalHeroUpdate(hero);
-      } else if(data?.deleteHero){
-        this.modalHeroDelete(hero);
-      }
-
-    });
-  }
-
   modalHeroCreate() {
     const dialogRef = this.dialog.open(HeroFormDialog, {
-      data: { hero: {id: this.heroData.length+1, name: '', strength: '', speed: '', endurance:'', image:'',} },
+      data: { hero: {id: '', name: '', strength: '', speed: '', endurance:'', image:'',} },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       const data = result?.data;
       if(data){
 
-        this.heroData.splice(0, 0, data.hero)
+        this.heros.splice(0, 0, data.hero)
 
-        this.dataSource = new MatTableDataSource<Hero>(this.heroData);
-        this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource<Hero>(this.heros);
+        this.totalElements++;
       }
     });
   }
@@ -142,28 +151,40 @@ export class HeroesListComponent implements OnInit, AfterViewInit {
       const data = result?.data;
 
       if(data){
-        const index = this.heroData.findIndex(hero => hero.id === data?.hero.id)
+        const index = this.heros.findIndex(hero => hero.id === data?.hero.id)
 
-        this.heroData[index] = data.hero;
+        this.heros[index] = data.hero;
 
-        this.dataSource = new MatTableDataSource<Hero>(this.heroData);
+        this.dataSource = new MatTableDataSource<Hero>(this.heros);
       }
-      
+
     });
   }
 
   deleteHero(hero:Hero){
-    let index = this.heroData.findIndex(he => he.id === hero.id);
+    let index = this.heros.findIndex(he => he.id === hero.id);
 
-    this.heroData.splice(index,1);
-    this.dataSource = new MatTableDataSource<Hero>(this.heroData);
-    this.dataSource.paginator = this.paginator;
+    this._heroService.deleteHero(hero.id).subscribe(
+      response => {
+        this.heros.splice(index,1);
+        this.dataSource = new MatTableDataSource<Hero>(this.heros);
+      }
+    )
   }
 
-  search(event:any):void{    
-    this.heroData = this._heroService.searchHeroes(event);
-    this.dataSource = new MatTableDataSource<Hero>(this.heroData);
-    this.dataSource.paginator = this.paginator;    
+  search(query:any):void{
+    this.heros = this._heroService.searchHeroes(query);
+    this.dataSource = new MatTableDataSource<Hero>(this.heros);
+
+  }
+
+  handlePage(event:any):void{
+    console.log(event)
+    const {pageSize, pageIndex} = event;
+
+    this.limit = pageSize;
+
+    this.getHeroes(pageSize, pageIndex+1);
   }
 
 }

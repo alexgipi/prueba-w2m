@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { Hero } from '../models/hero';
 
@@ -8,7 +7,7 @@ import { Hero } from '../models/hero';
   providedIn: 'root'
 })
 export class HeroService {
-
+  public apiUrl:string = 'http://localhost:3000/'
   public ELEMENT_DATA: Hero[] = [
     {id: 1, name: 'Deadpool', strength:55, speed: 75,  endurance: 80, image: 'https://is1-ssl.mzstatic.com/image/thumb/w-uHCvQ9CFlQ3uuzZ_1kIw/1200x675mf.jpg'},
     {id: 2, name: 'Iron Man', strength: 45, speed: 40,  endurance: 40, image: 'https://www.cinemascomics.com/wp-content/uploads/2020/12/iron-man-4.jpg'},
@@ -33,35 +32,51 @@ export class HeroService {
   ];
 
   constructor(
-    public _http: HttpClient,
-	  public cookieService: CookieService
+    public _http: HttpClient
   ) { }
 
-  getHeroes(limit:number = 5, page:number = 1){
-		return this.ELEMENT_DATA;
-	}
+  getHeroes(limit:number = 15, page:number = 1, sort:string = 'id', order:string = 'desc'):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let url = `${this.apiUrl}heroes?_limit=${limit}&_page=${page}&_sort=${sort}&_order=${order}`;
 
-	getHero(id:number){
-    const hero = this.ELEMENT_DATA.find(e => e.id === id);
-    return hero;
-	}
-
-  searchHeroes(query:string){
-    const heroes = this.ELEMENT_DATA.filter(hero => hero.name.toLowerCase().includes(query.toLocaleLowerCase()));
-    return heroes;
+    return this._http.get(url,  {observe:'response', headers:headers});
   }
 
-  updateHero(id:number, update:Hero){
-    let index = this.ELEMENT_DATA.findIndex(hero => hero.id === id);
-    this.ELEMENT_DATA[index] = update;
-    return {hero: update}
+  createHero(hero:Hero):Observable<any>{
+    const data = JSON.stringify(hero);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this._http.post(`${this.apiUrl}heroes`, data, {headers:headers});
+	}
+
+  getHero(id:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this._http.get(`${this.apiUrl}heroes/${id}`, {headers:headers});
+	}
+
+  updateHero(id:number, update:Hero):Observable<any>{
+    const data = JSON.stringify(update);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this._http.put(`${this.apiUrl}heroes/${id}`, data, {headers:headers});
+	}
+
+  deleteHero(id:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this._http.delete(`${this.apiUrl}heroes/${id}`, {headers:headers});
 	}
 
 
-  deleteHero(id:number){
-		let index = this.ELEMENT_DATA.findIndex(hero => hero.id === id);
-    this.ELEMENT_DATA.splice(index,1)
-	}
+  searchHeroes(query:string){
+    const heroes = this.ELEMENT_DATA.filter(
+      hero =>
+        hero.name.toLowerCase().includes(query.toLocaleLowerCase()) ||
+        hero.id === Number(query)
+      );
+    return heroes;
+  }
 
 
 }

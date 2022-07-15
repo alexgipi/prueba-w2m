@@ -1,27 +1,62 @@
-# TestClient
+# Prueba técnica W2M
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+Backoffice con Angular para la administración de Heroes + JSON-Server de mockup API
 
-## Development server
+## Comenzando 🚀
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-## Code scaffolding
+### Instalación 🔧
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
 
-## Build
+_Instalación de dependencias_
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+npm install
+```
 
-## Running unit tests
+_Arrancar el backofice_
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm start
+```
 
-## Running end-to-end tests
+_Arrancar la API de JSON-Server_
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+npm run start:api
+```
 
-## Further help
+_POST: http://localhost:3000/heroes : Guardar un heroe_
+_GET: http://localhost:3000/heroes : Devuelve listado de heroes_
+_GET: http://localhost:3000/heroes/1 : Devuelve un heroe por id_
+_PUT: http://localhost:3000/heroes/1 : Editar un heroe_
+_DELETE: http://localhost:3000/heroes/1 : Eliminar un heroe_
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Ejecutando el Build
+
+Ejecuta `ng build` para compilar el proyecto. Los archivos compilados se almacenarán en el directorio `dist/`.
+
+## Ejecutando las pruebas ⚙️
+
+_Ejecuta `ng test` para arrancar las pruebas unitarias a través de [Karma](https://karma-runner.github.io)._
+
+
+## Construido con 🛠️
+
+_Herramientas utilizadas para la creación del proyecto_
+* [Angular](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
+* [JSON Server](https://github.com/typicode/json-server) - Mockup de API (Fake API)
+
+
+## Autores ✒️
+
+* **Alex Giménez Piqué** - *Trabajo Inicial* - [alexgipi](https://github.com/alexgipi)
+
+## Licencia 📄
+
+Este proyecto está bajo la Licencia (MIT)
+
+---
+⌨️ con ❤️ por [alexgipi](https://github.com/alexgipi) 😊

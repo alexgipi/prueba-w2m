@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HeroDetailDialog } from '../dialogs/hero-detail-dialog/hero-detail-dialog.component';
-import { HeroFormDialog } from '../dialogs/hero-form-dialog/hero-form-dialog.component';
+import { HeroFormDialog } from '../../../heroes/components/dialogs/hero-form-dialog/hero-form-dialog.component';
 import { HeroService } from 'src/app/services/hero.service';
 import { Hero } from 'src/app/models/hero';
 
@@ -14,6 +13,7 @@ import { Hero } from 'src/app/models/hero';
 export class HeroCardComponent implements OnInit {
 
   @Input() hero!: Hero;
+  @Input() cardStyle!: string;
   @Output() onDeleted = new EventEmitter<string>();
 
   constructor(
@@ -26,26 +26,9 @@ export class HeroCardComponent implements OnInit {
 
   }
 
-  modalHeroDetail() {
-    const dialogRef = this.dialog.open(HeroDetailDialog, {
-      data: { hero: this.hero },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      const data = result?.data;
-
-      if(data?.openUpdateHeroModal){
-        this.modalHeroUpdate();
-      } else if(data?.deleteHero){
-        this.deleteHero();
-      }
-
-    });
-  }
-
   modalHeroUpdate() {
     const dialogRef = this.dialog.open(HeroFormDialog, {
-      data: { hero: this.hero },
+      data: {edit:true, hero: this.hero },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -57,6 +40,7 @@ export class HeroCardComponent implements OnInit {
 
   deleteHero(){
     let response = {hero: this.hero}
+    console.log(response)
     this.onDeleted.emit(JSON.stringify(response));
   }
 

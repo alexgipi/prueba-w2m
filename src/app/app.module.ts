@@ -10,6 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { SharedModule } from './shared/shared.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -18,8 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +33,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     HttpClientModule,
     AppRoutingModule,
-    HeroesModule,
     BrowserAnimationsModule,
-    MatMenuModule
+    MatMenuModule,
+    SharedModule,
+    HeroesModule
+
   ],
   bootstrap: [AppComponent]
 })

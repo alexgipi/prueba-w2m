@@ -26,20 +26,13 @@
     </div>
   </div>
 
-  <div *ngIf="currentView === 'grid'" class="heroes-list" infiniteScroll
-  [infiniteScrollDistance]="1"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="loadMore()">
-      <app-hero-card (onDeleted)="onHeroDeleted($event)" [hero]="hero" *ngFor="let hero of heroData"></app-hero-card>
-  </div>
-
-  <div [class.display-none]="currentView !== 'table'"  class="table mat-elevation-z8">
+  <div [class.display-none]="currentView !== 'table'"  class="table">
     <table mat-table [dataSource]="dataSource">
 
       <!-- Position Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.id}} </td>
       </ng-container>
 
       <!-- Name Column -->
@@ -110,8 +103,8 @@
         <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.ACTIONS' | translate }} </th>
         <td mat-cell *matCellDef="let element">
           <div class="cell-actions">
-            <button (click)="modalHeroDetail(element)" class="view">{{ 'HEROES.ACTIONS.VIEW' | translate }}</button>
-            <button (click)="modalHeroUpdate(element)" class="edit">{{ 'HEROES.ACTIONS.EDIT' | translate }}</button>
+            <a [routerLink]="['/heroes', element.id]" class="view">{{ 'HEROES.ACTIONS.VIEW' | translate }}</a>
+            <a (click)="modalHeroUpdate(element)" class="edit">{{ 'HEROES.ACTIONS.EDIT' | translate }}</a>
             <svg (click)="modalHeroDelete(element)" mat-dialog-close="" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" class="remove-icon" ng-reflect-dialog-result="" type="button"><path d="M0 0h24v24H0z" fill="none"></path><path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"></path></svg>
           </div>
         </td>
@@ -120,9 +113,19 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <mat-paginator [pageSizeOptions]="[15, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
   </div>
+
+
+  <div *ngIf="currentView === 'grid'" class="heroes-list">
+      <app-hero-card (onDeleted)="onHeroDeleted($event)" [hero]="hero" *ngFor="let hero of heros"></app-hero-card>
+  </div>
+
+  <mat-paginator [class.grid-view-paginator]="currentView === 'grid'" [length]="totalElements"
+              [pageSize]="limit"
+              [pageSizeOptions]="[15, 25, 50, 100]"
+              aria-label="Select page"
+              (page)="handlePage($event)">
+  </mat-paginator>
 
 
 </div>

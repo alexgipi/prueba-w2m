@@ -3,8 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeroesListComponent } from './modules/heroes/components/heroes-list/heroes-list.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'heroes', pathMatch: 'full'},
-  {path:'heroes', component: HeroesListComponent}
+  {
+    path: 'heroes',
+    loadChildren: () => import(`./modules/heroes/heroes.module`).then(
+      module => module.HeroesModule
+    )
+  },
+  {
+    path: '',
+    redirectTo: 'heroes',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
