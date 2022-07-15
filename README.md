@@ -28,11 +28,11 @@ _Arrancar la API de JSON-Server_
 npm run start:api
 ```
 
-_POST: http://localhost:3000/heroes : Guardar un heroe_
-_GET: http://localhost:3000/heroes : Devuelve listado de heroes_
-_GET: http://localhost:3000/heroes/1 : Devuelve un heroe por id_
-_PUT: http://localhost:3000/heroes/1 : Editar un heroe_
-_DELETE: http://localhost:3000/heroes/1 : Eliminar un heroe_
+-POST: http://localhost:3000/heroes : Guardar un heroe_
+-GET: http://localhost:3000/heroes : Devuelve listado de heroes_
+-GET: http://localhost:3000/heroes/1 : Devuelve un heroe por id_
+-PUT: http://localhost:3000/heroes/1 : Editar un heroe_
+-DELETE: http://localhost:3000/heroes/1 : Eliminar un heroe_
 
 ## Ejecutando el Build
 
