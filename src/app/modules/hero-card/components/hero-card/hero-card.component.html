@@ -1,0 +1,48 @@
+<div class="heroes-list__item" [class.single-hero]="cardStyle === 'single-hero'">
+    <header>
+        <a [routerLink]="'/heroes'">
+          <svg *ngIf="cardStyle === 'single-hero'" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M24 40 8 24 24 8l2.1 2.1-12.4 12.4H40v3H13.7l12.4 12.4Z"/></svg>
+        </a>
+
+        <svg [matMenuTriggerFor]="menu" class="more-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </header>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+        <a [routerLink]="['/heroes', hero?.id]" *ngIf="cardStyle !== 'single-hero'" mat-menu-item>{{ 'HEROES.ACTIONS.VIEW' | translate }}</a>
+        <button (click)="modalHeroUpdate()" mat-menu-item>{{ 'HEROES.ACTIONS.EDIT' | translate }}</button>
+        <button (click)="deleteHero()" mat-menu-item>{{ 'HEROES.ACTIONS.DELETE' | translate }}</button>
+    </mat-menu>
+
+    <div class="details">
+        <div class="role">
+          ID: {{hero?.id}}
+        </div>
+
+        <h3 *ngIf="!cardStyle" class="name">
+            {{hero?.name}}
+        </h3>
+        <h1 *ngIf="cardStyle === 'single-hero'" class="name">
+          {{hero?.name}}
+        </h1>
+
+        <div class="stats">
+          {{ 'HEROES.PROPS.STRENGTH' | translate }}: {{hero?.strength}} / 100
+        </div>
+        <div class="stats">
+          {{ 'HEROES.PROPS.SPEED' | translate }}: {{hero?.speed}} / 100
+        </div>
+        <div class="stats">
+          {{ 'HEROES.PROPS.ENDURANCE' | translate }}: {{hero?.endurance}} / 100
+        </div>
+    </div>
+
+    <div class="avatar">
+      <img *ngIf="!hero?.image" [src]="'https://neuroqualyfam.usal.es/wp-content/uploads/sites/51/2019/12/default-user-image.png'" alt="{{hero?.name}} image">
+
+      <img *ngIf="hero?.image" [src]="hero?.image" alt="{{hero?.name}} image">
+    </div>
+
+    <footer class="actions">
+        <a *ngIf="cardStyle !== 'single-hero'" [routerLink]="['/heroes', hero?.id]" class="btn" mat-raised-button color="primary">{{ 'HEROES.ACTIONS.VIEW_DETAIL' | translate }}</a>
+    </footer>
+</div>

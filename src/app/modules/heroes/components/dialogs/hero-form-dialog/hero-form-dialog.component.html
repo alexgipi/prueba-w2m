@@ -1,0 +1,67 @@
+<div class="dialog-header">
+  <h2 (click)="createHero()" *ngIf="editMode" class="title" mat-dialog-title>{{ formTitle | translate }}</h2>
+  <h2 (click)="createHero()" *ngIf="!editMode" class="title" mat-dialog-title>{{ formTitle | translate }}</h2>
+
+  <svg mat-dialog-close class="dialog-close-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</div>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="heroUpdateForm" class="form form--update">
+
+    <div class="form__content">
+        <div class="form__item" [class.error]="heroUpdateForm.controls['image'].invalid && heroUpdateForm.controls['image']?.touched">
+            <label for="image">
+                {{ 'HEROES.PROPS.IMAGE' | translate }}
+
+            </label>
+
+            <input class="box-input" formControlName="image" type="url" id="image" placeholder="{{ 'HEROES.PROPS.IMAGE_PLACEHOLDER' | translate }}">
+        </div>
+
+        <div class="form__item" [class.error]="heroUpdateForm.controls['name'].invalid && heroUpdateForm.controls['name']?.touched">
+            <label for="name">
+                {{ 'HEROES.PROPS.NAME' | translate }}
+                <span class="required-field-icon">*</span>
+            </label>
+
+            <input class="box-input" formControlName="name" type="text" id="name" placeholder="{{ 'HEROES.PROPS.NAME_PLACEHOLDER' | translate }}">
+        </div>
+
+        <div class="form__item" [class.error]="heroUpdateForm.controls['strength'].invalid && heroUpdateForm.controls['strength']?.touched">
+            <label for="strength">
+                {{ 'HEROES.PROPS.STRENGTH' | translate }}
+                <span class="required-field-icon">*</span>
+            </label>
+
+            <input class="box-input" formControlName="strength" type="number" id="strength" placeholder="{{ 'HEROES.PROPS.STRENGTH_PLACEHOLDER' | translate }}">
+        </div>
+
+        <div class="form__item" [class.error]="heroUpdateForm.controls['speed'].invalid && heroUpdateForm.controls['speed']?.touched">
+            <label for="speed">
+                {{ 'HEROES.PROPS.SPEED' | translate }}
+                <span class="required-field-icon">*</span>
+            </label>
+
+            <input class="box-input" formControlName="speed" type="number" id="speed" placeholder="{{ 'HEROES.PROPS.SPEED_PLACEHOLDER' | translate }}">
+        </div>
+
+        <div class="form__item" [class.error]="heroUpdateForm.controls['endurance'].invalid && heroUpdateForm.controls['endurance']?.touched">
+          <label for="endurance">
+            {{ 'HEROES.PROPS.ENDURANCE' | translate }}
+              <span class="required-field-icon">*</span>
+          </label>
+
+          <input class="box-input" formControlName="endurance" type="text" id="endurance" placeholder="{{ 'HEROES.PROPS.ENDURANCE_PLACEHOLDER' | translate }}">
+        </div>
+
+
+    </div>
+
+    <span *ngFor="let error of errors;" class="error-label">
+        {{error.msg}}
+    </span>
+
+    <div class="form__actions">
+        <button (click)="sendForm()" [disabled]="!heroUpdateForm.valid" class="btn">{{ formButtonText | translate }}</button>
+    </div>
+  </form>
+</mat-dialog-content>

@@ -1,0 +1,181 @@
+.heroes-list {
+    &__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 30px;
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 0 0 transparent;
+      transition: all 0.3s;
+      background: #fff;
+
+        &:hover {
+            header {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 9%), 0px 8px 10px 1px rgb(0 0 0 / 10%), 0px 3px 14px 2px rgb(84 84 84 / 12%);
+        }
+
+        header {
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            position: absolute;
+            top: 0;
+            padding: 27px;
+            display: flex;
+            justify-content: flex-end;
+
+            .more-icon {
+              cursor: pointer;
+              fill: #000000;
+              transform: rotate(90deg);
+            }
+        }
+
+        .avatar {
+            display: flex;
+            width: 100%;
+            margin-top: 15px;
+
+            svg {
+                width: 160px;
+                height: 170px;
+                opacity: 0.2;
+            }
+
+            img {
+
+                height: 220px;
+                width: 90%;
+                border-radius: 16px;
+                object-fit: cover;
+                object-position: top;
+                margin: auto;
+
+            }
+        }
+
+        .details {
+            .name,.stats, .role {
+                text-align: center;
+            }
+
+            .name {
+                margin: 20px 0;
+                color: #000;
+                font-weight: 500;
+                font-size: 2em;
+                line-height: 1.1;
+            }
+
+            .stats {
+                margin-bottom: 10px;
+                font-weight: 500;
+                font-family: monospace;
+            }
+
+            .role {
+              font-size: 0.9em;
+              font-weight: 500;
+            }
+        }
+
+        .actions {
+          margin-top: 30px;
+          display: flex;
+          align-items: center;
+            .btn {
+              background: #ec1d24;
+              border-radius: 8px;
+              padding: 4px 24px;
+            }
+
+            .more-btn {
+              width: 40px;
+              height: 40px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              margin-left: 12px;
+              border-radius: 7px;
+              color: #0000006b;
+              background: #d9d9d9d6;
+            }
+        }
+
+
+        &.single-hero {
+          background-color: transparent;
+          margin-top: 30px;
+          padding: 50px 30px;
+          border-radius: 20px;
+
+          &:hover {
+            box-shadow: unset;
+          }
+
+          header {
+            visibility: visible;
+            position: relative;
+            opacity: 1;
+            padding: 0;
+            justify-content: space-between;
+
+            svg {
+              width: 40px;
+              height: 40px;
+            }
+          }
+
+          .avatar {
+            margin-top: 30px;
+            img {
+              height: auto;
+              margin: 0 auto;
+              max-height: 600px;
+              max-width: 700px;
+              min-height: 230px;
+            }
+          }
+
+          .details {
+            .name {
+              font-size: 3.9em;
+              margin: 40px 0;
+              font-weight: 600;
+            }
+
+            .stats {
+                margin-bottom: 14px;
+                font-size: 1.1em;
+            }
+          }
+        }
+    }
+}
+
+@media(max-width:1000px){
+    .heroes-list__item {
+        header {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+
+@media(max-width:500px){
+  .heroes-list__item.single-hero {
+    .details {
+      .name {
+        font-size: 2.9em;
+      }
+    }
+  }
+}

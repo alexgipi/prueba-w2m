@@ -1,0 +1,45 @@
+{
+    "HEROES": {
+        "SINGULAR": "Hero",
+        "PLURAL": "Heroes",
+        "TITLE": "Hero management",
+        "ADD_HERO": "Add hero",
+        "FILTER_HEROES": "Filter heroes",
+        "PROPS": {
+            "IMAGE": "Image",
+            "IMAGE_PLACEHOLDER": "Image url",
+
+            "NAME": "Name",
+            "NAME_PLACEHOLDER": "Hero name",
+
+            "STRENGTH": "Strength",
+            "STRENGTH_PLACEHOLDER": "Hero strength",
+
+            "SPEED": "Speed",
+            "SPEED_PLACEHOLDER": "Hero speed",
+
+            "ENDURANCE": "Endurance",
+            "ENDURANCE_PLACEHOLDER": "Hero endurance",
+
+            "ACTIONS": "Actions"
+        },
+        "ACTIONS": {
+            "VIEW": "View",
+            "VIEW_DETAIL": "View detail",
+            "EDIT": "Edit",
+            "DELETE": "Delete",
+            "CLOSE": "Close",
+            "SAVE_CHANGES": "Save changes"
+        },
+        "DETAIL_TITLE": "Hero detail",
+        "EDIT_TITLE": "Edit hero",
+        "REMOVE_TITLE": "Delete hero"
+    },
+    "LANGUAGES": {
+        "SPANISH": "Spanish",
+        "ENGLISH": "English"
+    },
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete"
+}

@@ -1,0 +1,45 @@
+{
+    "HEROES": {
+        "SINGULAR": "Heroe",
+        "PLURAL": "Heroes",
+        "TITLE": "Administración de Heroes",
+        "ADD_HERO": "Añadir heroe",
+        "FILTER_HEROES": "Filtrar heroes",
+        "PROPS": {
+            "IMAGE": "Imagen",
+            "IMAGE_PLACEHOLDER": "Url de la imagen",
+
+            "NAME": "Nombre",
+            "NAME_PLACEHOLDER": "Nombre del heroe",
+
+            "STRENGTH": "Fuerza",
+            "STRENGTH_PLACEHOLDER": "Fuerza del heroe",
+
+            "SPEED": "Velocidad",
+            "SPEED_PLACEHOLDER": "Velocidad del heroe",
+
+            "ENDURANCE": "Resistencia",
+            "ENDURANCE_PLACEHOLDER": "Resistencia del heroe",
+
+            "ACTIONS": "Acciones"
+        },
+        "ACTIONS": {
+            "VIEW": "Ver",
+            "VIEW_DETAIL": "Ver detalle",
+            "EDIT": "Editar",
+            "DELETE": "Eliminar",
+            "CLOSE": "Cerrar",
+            "SAVE_CHANGES": "Guardar cambios"
+        },
+        "DETAIL_TITLE": "Detalle de usuario",
+        "EDIT_TITLE": "Editar heroe",
+        "REMOVE_TITLE": "Eliminar heroe"
+    },
+    "LANGUAGES": {
+        "SPANISH": "Español",
+        "ENGLISH": "Inglés"
+    },
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "DELETE_CONFIRM_MESSAGE": "¿Seguro que quieres eliminar"
+}

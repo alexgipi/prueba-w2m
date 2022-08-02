@@ -1,0 +1,131 @@
+<div class="spaceContent">
+
+  <div class="table-actions">
+
+    <div class="table-actions__filters">
+      <button (click)="modalHeroCreate()" class="btn" mat-raised-button color="primary">{{ 'HEROES.ADD_HERO' | translate }}</button>
+
+      <div class="search">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" class="icon"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+        <input [(ngModel)]="searchValue" (ngModelChange)="search($event)" class="search" type="text" placeholder="{{ 'HEROES.FILTER_HEROES' | translate }}">
+
+      </div>
+
+    </div>
+    <div class="table-actions__change-view">
+
+      <button (click)="toggleView()" [class.active]="currentView === 'table'" class="change-view-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><rect fill="none" height="24" width="24"></rect><path d="M4,14h2c0.55,0,1-0.45,1-1v-2c0-0.55-0.45-1-1-1H4c-0.55,0-1,0.45-1,1v2C3,13.55,3.45,14,4,14z M4,19h2c0.55,0,1-0.45,1-1 v-2c0-0.55-0.45-1-1-1H4c-0.55,0-1,0.45-1,1v2C3,18.55,3.45,19,4,19z M4,9h2c0.55,0,1-0.45,1-1V6c0-0.55-0.45-1-1-1H4 C3.45,5,3,5.45,3,6v2C3,8.55,3.45,9,4,9z M9,14h11c0.55,0,1-0.45,1-1v-2c0-0.55-0.45-1-1-1H9c-0.55,0-1,0.45-1,1v2 C8,13.55,8.45,14,9,14z M9,19h11c0.55,0,1-0.45,1-1v-2c0-0.55-0.45-1-1-1H9c-0.55,0-1,0.45-1,1v2C8,18.55,8.45,19,9,19z M8,6v2 c0,0.55,0.45,1,1,1h11c0.55,0,1-0.45,1-1V6c0-0.55-0.45-1-1-1H9C8.45,5,8,5.45,8,6z"></path></svg>
+      </button>
+
+      <button (click)="toggleView()" [class.active]="currentView === 'grid'" class="change-view-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><rect fill="none" height="24" width="24"></rect><g><path d="M14.67,6v4.5c0,0.55-0.45,1-1,1h-3.33c-0.55,0-1-0.45-1-1V6c0-0.55,0.45-1,1-1h3.33C14.22,5,14.67,5.45,14.67,6z M16.67,11.5H20c0.55,0,1-0.45,1-1V6c0-0.55-0.45-1-1-1h-3.33c-0.55,0-1,0.45-1,1v4.5C15.67,11.05,16.11,11.5,16.67,11.5z M14.67,18v-4.5c0-0.55-0.45-1-1-1h-3.33c-0.55,0-1,0.45-1,1V18c0,0.55,0.45,1,1,1h3.33C14.22,19,14.67,18.55,14.67,18z M15.67,13.5V18c0,0.55,0.45,1,1,1H20c0.55,0,1-0.45,1-1v-4.5c0-0.55-0.45-1-1-1h-3.33C16.11,12.5,15.67,12.95,15.67,13.5z M7.33,12.5H4c-0.55,0-1,0.45-1,1V18c0,0.55,0.45,1,1,1h3.33c0.55,0,1-0.45,1-1v-4.5C8.33,12.95,7.89,12.5,7.33,12.5z M8.33,10.5V6 c0-0.55-0.45-1-1-1H4C3.45,5,3,5.45,3,6v4.5c0,0.55,0.45,1,1,1h3.33C7.89,11.5,8.33,11.05,8.33,10.5z"></path></g></svg>
+      </button>
+
+
+    </div>
+  </div>
+
+  <div [class.display-none]="currentView !== 'table'"  class="table">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.IMAGE' | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="hero-image">
+            <img *ngIf="element.image" [src]="element.image" alt="{{element.name}}">
+            <svg *ngIf="!element.image" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 45.532 45.532" xml:space="preserve" class="hero-profile"><g _ngcontent-gyu-c16=""><g _ngcontent-gyu-c16="" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-gyu-c16="" d="M22.766,0.001C10.194,0.001,0,10.193,0,22.766s10.193,22.765,22.766,22.765c12.574,0,22.766-10.192,22.766-22.765   S35.34,0.001,22.766,0.001z M22.766,6.808c4.16,0,7.531,3.372,7.531,7.53c0,4.159-3.371,7.53-7.531,7.53   c-4.158,0-7.529-3.371-7.529-7.53C15.237,10.18,18.608,6.808,22.766,6.808z M22.761,39.579c-4.149,0-7.949-1.511-10.88-4.012   c-0.714-0.609-1.126-1.502-1.126-2.439c0-4.217,3.413-7.592,7.631-7.592h8.762c4.219,0,7.619,3.375,7.619,7.592   c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z" fill="#000000" data-original="#000000"></path></g></g></svg>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.NAME' | translate }} </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="strength">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.STRENGTH' | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="hero-stat">
+            <span class="current-stat green"
+            [class.red]="element.strength < 40"
+            [class.orange]="element.strength >= 40 && element.strength < 65"
+            [class.green]="element.strength >= 65">
+              {{element.strength}}
+            </span>
+            <strong class="max-stat"> / 100</strong>
+          </div>
+
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="speed">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.SPEED' | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="hero-stat">
+            <span class="current-stat green"
+            [class.red]="element.speed < 40"
+            [class.orange]="element.speed >= 40 && element.speed < 65"
+            [class.green]="element.speed >= 65">
+              {{element.speed}}
+            </span>
+            <strong class="max-stat"> / 100</strong>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endurance">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.ENDURANCE' | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="hero-stat">
+            <span class="current-stat green"
+            [class.red]="element.endurance < 40"
+            [class.orange]="element.endurance >= 40 && element.endurance < 65"
+            [class.green]="element.endurance >= 65">
+              {{element.endurance}}
+            </span>
+            <strong class="max-stat"> / 100</strong>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> {{ 'HEROES.PROPS.ACTIONS' | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="cell-actions">
+            <a [routerLink]="['/heroes', element.id]" class="view">{{ 'HEROES.ACTIONS.VIEW' | translate }}</a>
+            <a (click)="modalHeroUpdate(element)" class="edit">{{ 'HEROES.ACTIONS.EDIT' | translate }}</a>
+            <svg (click)="modalHeroDelete(element)" mat-dialog-close="" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" class="remove-icon" ng-reflect-dialog-result="" type="button"><path d="M0 0h24v24H0z" fill="none"></path><path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"></path></svg>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+
+  <div *ngIf="currentView === 'grid'" class="heroes-list">
+      <app-hero-card (onDeleted)="onHeroDeleted($event)" [hero]="hero" *ngFor="let hero of heros"></app-hero-card>
+  </div>
+
+  <mat-paginator [class.grid-view-paginator]="currentView === 'grid'" [length]="totalElements"
+              [pageSize]="limit"
+              [pageSizeOptions]="[15, 25, 50, 100]"
+              aria-label="Select page"
+              (page)="handlePage($event)">
+  </mat-paginator>
+
+
+</div>
